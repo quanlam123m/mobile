@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
+    <meta name="color-scheme" content="light dark">
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="css/index.css">
+
+    <title>Database</title>
+</head>
+
+<body>
+    <!-- PAGE 01 -->
+    <div data-role="page" id="page-01">
+        <div data-role="header" data-position="fixed"></div>
+
+        <div data-role="main">
+            <h1>Page 01</h1>
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-01"
+                            class="ui-btn ui-icon-home ui-btn-icon-notext ui-nodisc-icon ui-alt-icon ui-btn-active">Home</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-02"
+                            class="ui-btn ui-icon-plus ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Create Account</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-03"
+                            class="ui-btn ui-icon-grid ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Account List</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-04"
+                            class="ui-btn ui-icon-search ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 02 -->
+    <div data-role="page" id="page-02">
+        <div data-role="header" data-position="fixed"></div>
+
+        <div data-role="main" class="ui-content">
+            <!--Registration Form-->
+            <form id="frm-submit">
+                <h3>Property Name: </h3>
+                <input type="text" placeholder="Enter property name here" id="property" required>
+                <h3>Property Address</h3>
+                <input type="text" placeholder="Enter street number & name here" id="address" required>
+                <!-- <fieldset data-role="controlgroup">
+                    <select id="city" required></select>
+                    <select id="district" required></select>
+                    <select id="ward" required></select>
+                </fieldset> -->
+                <h3>Property Type: </h3>
+                <select id="type" required>
+                    <option value="">Select Type</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="penhouse">Penhouse</option>
+                    <option value="vila">Vila</option>
+                </select>
+                <h3>Bedroom: </h3>
+                <select id="bedroom" required>
+                    <option value="">Select Bedroom</option>
+                    <option value="studio">Studio</option>
+                    <option value="one">One</option>
+                    <option value="two">Two</option>
+                </select>
+                <h3>Furniture types : </h3>
+                <select id="furniture" required>
+                    <option value="">Select Furniture</option>
+                    <option value="furnished">Furnished</option>
+                    <option value="unfurnished">Unfurnished</option>
+                    <option value="partfurnished">Part Furnished</option>
+                </select>
+                <h3>Monthly Price:</h3>
+                <input type="text" id="price" placeholder="Enter monthly price here" required min="0">
+                <h3>Reporter: </h3>
+                <input type="text" placeholder="Enter name of reporter here" id="report" required>
+                <h3>Note: </h3>
+                <input type="text" placeholder="Enter a note here" id="note" required>
+
+                <button type="submit">Submit</button>
+                <!-- <a href="#confirmAdd" data-rel="popup" data-position-to="window" data-transition="pop"
+                        class="ui-btn ui-corner-all ui-btn-b">Submit</a> -->
+
+            </form>
+            <!-- Popup create apartment -->
+            <form data-role="popup" id="confirmAdd">
+                <div data-role="header">
+                    <h3 style="padding-top: 20px;">Add Apartment</h3>
+                    <p style="text-align: center; margin: 0 10px 0 10px"> Please verify the information entered is correct </p>
+                </div>
+    
+                <div role="main" class="ui-content">
+                    <table>
+                        <tr>
+                            <th>Name:</th>
+                            <td id="property"></td>
+                        </tr>
+        
+                        <tr>
+                            <th>Address:</th>
+                            <td id="address"></td>
+                        </tr>
+        
+                        <tr>
+                            <th>Type:</th>
+                            <td id="type"></td>
+                        </tr>
+        
+                        <tr>
+                            <th>Bedroom:</th>
+                            <td id="bedroom"></td>
+                        </tr>
+        
+                        <tr>
+                            <th>Furniture:</th>
+                            <td id="furniture"></td>
+                        </tr>
+        
+                        <tr>
+                            <th>Price:</th>
+                            <td id="price"></td>
+                        </tr>
+        
+                        <tr>
+                            <th>Reporter:</th>
+                            <td id="report"></td>
+                        </tr>
+        
+                        <tr>
+                            <th>Note: </th>
+                            <td id="note"></td>
+                        </tr>
+                    </table>
+                    <div style="text-align: right;">
+                        <a class="ui-btn ui-corner-all ui-btn-inline" data-rel="back">Cancel</a>
+                        <button type="submit" class="ui-btn ui-corner-all ui-btn-inline">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-01"
+                            class="ui-btn ui-icon-home ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Home</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-02"
+                            class="ui-btn ui-icon-plus ui-btn-icon-notext ui-nodisc-icon ui-alt-icon ui-btn-active">Create
+                            Account</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-03"
+                            class="ui-btn ui-icon-grid ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Account List</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-04"
+                            class="ui-btn ui-icon-search ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 03 -->
+    <div data-role="page" id="page-03">
+        <div data-role="header" data-position="fixed"></div>
+
+        <div data-role="main" class="ui-content">
+            <!--Display Apartment List-->
+            <ul id="list-apartment" data-role="listview" data-insert="true"></ul>
+        </div>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-01"
+                            class="ui-btn ui-icon-home ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Home</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-02"
+                            class="ui-btn ui-icon-plus ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Create Account</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-03"
+                            class="ui-btn ui-icon-grid ui-btn-icon-notext ui-nodisc-icon ui-alt-icon ui-btn-active">Account
+                            List</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-04"
+                            class="ui-btn ui-icon-search ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 04 -->
+    <div data-role="page" id="page-04">
+        <div data-role="header" data-position="fixed"></div>
+
+        <div data-role="main">
+            <h1>Search Page</h1>
+            <a style="width: 100%; height: 50px;" href="#search" data-rel="popup" data-position-to="window" data-transition="pop"
+                        class="ui-btn ui-icon-search ui-btn-icon-notext ui-nodisc-icon ui-alt-icon"></a>
+        </div>
+
+        <form data-role="popup" id="search">
+            <div data-role="header">
+                <h1 style="padding-top: 20px;">Search</h1>
+            </div>
+
+            <div role="main" class="ui-content">
+                <h3>Property Name: </h3>
+                <input type="text" placeholder="Enter property name here" id="property">
+                <h3>Property Address</h3>
+                <input type="text" placeholder="Enter street number & name here" id="address">
+                <!-- <fieldset data-role="controlgroup">
+                    <select id="city" required></select>
+                    <select id="district" required></select>
+                    <select id="ward" required></select>
+                </fieldset> -->
+                <h3>Property Type: </h3>
+                <select id="type">
+                    <option value="">Select Type</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="penhouse">Penhouse</option>
+                    <option value="vila">Vila</option>
+                </select>
+                <h3>Bedroom: </h3>
+                <select id="bedroom">
+                    <option value="">Select Bedroom</option>
+                    <option value="studio">Studio</option>
+                    <option value="one">One</option>
+                    <option value="two">Two</option>
+                </select>
+                <h3>Furniture types: </h3>
+                <select id="furniture">
+                    <option value="">Select Furniture</option>
+                    <option value="furnished">Furnished</option>
+                    <option value="unfurnished">Unfurnished</option>
+                    <option value="partfurnished">Part Furnished</option>
+                </select>
+                <h3>Monthly Price:</h3>
+                <input type="text" id="price" placeholder="Enter monthly price here">
+
+                <div style="text-align: right;">
+                    <a class="ui-btn ui-corner-all ui-btn-inline" data-rel="back">Cancel</a>
+                    <button type="submit" class="ui-btn ui-corner-all ui-btn-inline">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <div data-role="main" class="ui-content">
+            <ul id="list-search" data-role="listview" data-insert="true"></ul>
+        </div>
+
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-01"
+                            class="ui-btn ui-icon-home ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Home</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-02"
+                            class="ui-btn ui-icon-plus ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Create Account</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-03"
+                            class="ui-btn ui-icon-grid ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Account List</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-04"
+                            class="ui-btn ui-icon-search ui-btn-icon-notext ui-nodisc-icon ui-alt-icon ui-btn-active">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 05 -->
+    <div data-role="page" id="page-05">
+        <div data-role="header" data-position="fixed">
+            <div>
+                <a href="#page-03" class="ui-btn ui-icon-arrow-l ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Back To
+                    List</a>
+            </div>
+        </div>
+
+        <div data-role="main">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <img src="./img/tuna.jpg" height="500px" width="605px">
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>ID:</th>
+                    <td id="id"></td>
+                </tr>
+
+                <tr>
+                    <th>Name:</th>
+                    <td id="property"></td>
+                </tr>
+
+                <tr>
+                    <th>Address:</th>
+                    <td id="address"></td>
+                </tr>
+
+                <tr>
+                    <th>Type:</th>
+                    <td id="type"></td>
+                </tr>
+
+                <tr>
+                    <th>Bedroom:</th>
+                    <td id="bedroom"></td>
+                </tr>
+
+                <tr>
+                    <th>Furniture:</th>
+                    <td id="furniture"></td>
+                </tr>
+
+                <tr>
+                    <th>Price:</th>
+                    <td id="price"></td>
+                </tr>
+
+                <tr>
+                    <th>Reporter:</th>
+                    <td id="report"></td>
+                </tr>
+
+                <tr>
+                    <th>Note: </th>
+                    <td id="note"></td>
+                </tr>
+            </table>
+            <textarea id="comment" placeholder="Enter your note here ...."></textarea>
+
+            <!-- Button Add Note and Delete -->
+            <div class="ui-grid-a">
+                <div class="ui-block-a" style="padding-right: 5px;">
+                    <a id="btn-comment" data-rel="popup" data-position-to="window" data-transition="pop"
+                        class="ui-btn ui-corner-all ui-btn-b">Comment</a>
+                </div>
+
+                <div class="ui-block-b" style="padding-left: 5px;">
+                    <a href="#frm-delete" data-rel="popup" data-position-to="window" data-transition="pop"
+                        class="ui-btn ui-corner-all ui-btn-b">Delete</a>
+                </div>
+            </div>
+
+            <ul id="list-comment" data-role="listview"></ul>
+        </div>
+
+        <!-- Delete Confirm Popup-->
+        <form data-role="popup" id="frm-delete">
+            <div data-role="header">
+                <h1 style="padding-top: 20px;">Delete Account?</h1>
+            </div>
+
+            <div role="main" class="ui-content">
+                <h3>Are you sure you want to delete this account?</h3>
+                <p>This action cannot be undone.</p>
+
+                <div style="text-align: right;">
+                    <a class="ui-btn ui-corner-all ui-btn-inline" data-rel="back">Cancel</a>
+                    <button type="submit" class="ui-btn ui-corner-all ui-btn-inline"
+                        id="btn-delete">Delete</button>
+                </div>
+            </div>
+        </form>
+
+        <div data-role="footer" data-position="fixed">
+            <div data-role="navbar">
+                <ul>
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-01"
+                            class="ui-btn ui-icon-home ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Home</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-02"
+                            class="ui-btn ui-icon-plus ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">Create Account</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-03"
+                            class="ui-btn ui-icon-grid ui-btn-icon-notext ui-nodisc-icon ui-alt-icon ui-btn-active">Account
+                            List</a>
+                    </li>
+
+                    <li>
+                        <a style="width: 100%; height: 50px;" href="#page-04"
+                            class="ui-btn ui-icon-info ui-btn-icon-notext ui-nodisc-icon ui-alt-icon">About</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="cordova.js"></script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="js/address.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
