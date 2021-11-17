@@ -36,6 +36,9 @@ function onDeviceReady() {
         var query = `CREATE TABLE IF NOT EXISTS Apartment (Id INTEGER PRIMARY KEY AUTOINCREMENT,
                                                          Name TEXT NOT NULL UNIQUE,
                                                          Address TEXT NOT NULL,
+                                                         Ward TEXT NOT NULL,
+                                                         District TEXT NOT NULL,
+                                                         City TEXT NOT NULL,
                                                          Type TEXT NOT NULL,
                                                          Bedroom TEXT NOT NULL,
                                                          Furniture TEXT NOT NULL,
@@ -69,6 +72,62 @@ function onDeviceReady() {
     prepareDatabase(db);
 }
 
+// Get data from database to the Ward, District and City selection box
+$(document).on('pagebeforeshow', '#page-02', function(){importCity()});
+
+function importCity(selectedID = -1) {
+    db.transaction(function (tx) {
+        var query = 'SELECT * FROM City';
+        tx.executeSql(query, [], transactionSuccess, transactionError);
+
+        function transactionSuccess(tx, result) {
+            var optionList = `<option value='-1'>Select City</option>`;
+            for(let item of result.rows) {
+                if(selectedID == item.Id) {
+                    optionList += `<option value='${item.Id}' selected>${item.Name}</option>`
+                }
+                else {
+                    optionList += `<option value='${item.Id}'>${item.Name}</option>`
+                }
+            }
+
+            $("#page-02 #frm-submit #city").html(optionList);
+            $("#page-02 #frm-submit #city").selectmenu('refresh', true);
+        }
+    });
+}
+$(document).on('change', '#page-02 #frm-submit #city', function(){
+    importOther('District', 'City')
+    importOther('Ward', 'District')
+});
+$(document).on('change', '#page-02 #frm-submit #district', function(){
+    importOther('Ward', 'District')
+});
+
+function importOther(name, parentName, selectedID = -1) {
+    var cityId = $(`#page-02 #frm-submit #${parentName.toLowerCase()}`).val();
+
+    db.transaction(function (tx) {
+        var query = `SELECT * FROM ${name} Where ${parentName}Id = ? ORDER BY NAME`;
+        tx.executeSql(query, [cityId], transactionSuccess, transactionError);
+
+        function transactionSuccess(tx, result) {
+            var optionList = `<option value='-1'>Select ${name}</option>`;
+            for(let item of result.rows) {
+                if(selectedID == item.Id) {
+                    optionList += `<option value='${item.Id}' selected>${item.Name}</option>`
+                }
+                else {
+                    optionList += `<option value='${item.Id}'>${item.Name}</option>`
+                }
+            }
+
+            $(`#page-02 #frm-submit #${name.toLowerCase()}`).html(optionList);
+            $(`#page-02 #frm-submit #${name.toLowerCase()}`).selectmenu('refresh', true);
+        }
+    });
+}
+
 // Submit a form to register a new apartment.
 $(document).on('submit', '#frm-submit', confirmProperty);
 $(document).on('submit', '#confirmAdd', submitProperty);
@@ -88,6 +147,9 @@ function checkApartment(property) {
         function transactionSuccess(tx, result) {
             if (result.rows[0] == null) {
                 var address = $('#address').val();
+                var city = $('#city option:selected').text();
+                var district = $('#district option:selected').text();
+                var ward = $('#ward option:selected').text();
                 var type = $('#type').val();
                 var bedroom = $('#bedroom').val();
                 var furniture = $('#furniture').val();
@@ -97,6 +159,9 @@ function checkApartment(property) {
 
                 $("#confirmAdd #property").text(property);
                 $("#confirmAdd #address").text(address);
+                $('#confirmAdd #city').text(city);
+                $('#confirmAdd #district').text(district);
+                $('#confirmAdd #ward').text(ward);
                 $("#confirmAdd #type").text(type);
                 $("#confirmAdd #bedroom").text(bedroom);
                 $("#confirmAdd #furniture").text(furniture);
@@ -119,6 +184,9 @@ function submitProperty(e) {
     // Get user's input.
     var property = $('#property').val();
     var address = $('#address').val();
+    var ward = $('#ward option:selected').text();
+    var district = $('#district option:selected').text();
+    var city = $('#city option:selected').text();
     var type = $('#type').val();
     var bedroom = $('#bedroom').val();
     var furniture = $('#furniture').val();
@@ -127,8 +195,8 @@ function submitProperty(e) {
     var note = $('#note').val();
     var date = new Date()
         db.transaction(function (tx) {
-            var query = 'INSERT INTO Apartment (Name, Address, Type, Bedroom, Furniture, Price, Reporter, Datetime, Note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-            tx.executeSql(query, [property, address, type, bedroom, furniture, price, reporter, date, note], transactionSuccess, transactionError);
+            var query = 'INSERT INTO Apartment (Name, Address, Ward, District, City, Type, Bedroom, Furniture, Price, Reporter, Datetime, Note) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+            tx.executeSql(query, [property, address, ward, district, city, type, bedroom, furniture, price, reporter, date, note], transactionSuccess, transactionError);
 
             function transactionSuccess(tx, result) {
                 // Logging.
@@ -163,7 +231,8 @@ function showList() {
                                 <p>${apartment.Datetime}</p>
                                 <div class="content">
                                     <h3>Property Name: ${apartment.Name}</h3>
-                                    <h3>Address: ${apartment.Address}</h3>
+                                    <h3>Address: ${apartment.Address} ${apartment.Ward}</h3>
+                                    <h3> ${apartment.District} ${apartment.City}</h3>
                                     <div id="apartment">
                                         <div>
                                             <h3>Property Type: ${apartment.Type}</h3>
@@ -213,6 +282,9 @@ function showDetail() {
             var errorMessage = 'Apartment not found';
             var property = errorMessage;
             var address = errorMessage;
+            var city = errorMessage;
+            var district = errorMessage;
+            var ward = errorMessage;
             var type = errorMessage;
             var bedroom = errorMessage;
             var furniture = errorMessage;
@@ -224,6 +296,9 @@ function showDetail() {
                 console.log(`Get details of apartment '${id}' successfully`);
                 property = result.rows[0].Name;
                 address = result.rows[0].Address;
+                city = result.rows[0].City;
+                district = result.rows[0].District;
+                ward = result.rows[0].Ward;
                 type = result.rows[0].Type;
                 bedroom = result.rows[0].Bedroom;
                 furniture = result.rows[0].Furniture;
@@ -237,6 +312,9 @@ function showDetail() {
             $('#page-05 #id').text(id);
             $('#page-05 #property').text(property);
             $('#page-05 #address').text(address);
+            $('#page-05 #ward').text(ward);
+            $('#page-05 #district').text(district);
+            $('#page-05 #city').text(city);
             $('#page-05 #type').text(type);
             $('#page-05 #bedroom').text(bedroom);
             $('#page-05 #furniture').text(furniture);
@@ -365,7 +443,8 @@ function search(e) {
                                 <img style="padding-top: 50px; padding-left: 15px; width: 100%" src='img/tuna.jpg'/>
                                 <div class="content">
                                     <h3>Property Name: ${apartment.Name}</h3>
-                                    <h3>Address: ${apartment.Address}</h3>
+                                    <h3>Address: ${apartment.Address} ${apartment.Ward}</h3>
+                                    <h3> ${apartment.District} ${apartment.City}</h3>
                                     <div id="apartment">
                                         <div>
                                             <h3>Property Type: ${apartment.Type}</h3>

@@ -22,7 +22,7 @@
         <div data-role="header" data-position="fixed"></div>
 
         <div data-role="main">
-            <h1>Page 01</h1>
+            <h1>Home Page</h1>
         </div>
 
         <div data-role="footer" data-position="fixed">
@@ -57,17 +57,18 @@
         <div data-role="header" data-position="fixed"></div>
 
         <div data-role="main" class="ui-content">
+            <h1>Add Page</h1>
             <!--Registration Form-->
             <form id="frm-submit">
                 <h3>Property Name: </h3>
                 <input type="text" placeholder="Enter property name here" id="property" required>
                 <h3>Property Address</h3>
                 <input type="text" placeholder="Enter street number & name here" id="address" required>
-                <!-- <fieldset data-role="controlgroup">
+                <fieldset data-role="controlgroup">
                     <select id="city" required></select>
                     <select id="district" required></select>
                     <select id="ward" required></select>
-                </fieldset> -->
+                </fieldset>
                 <h3>Property Type: </h3>
                 <select id="type" required>
                     <option value="">Select Type</option>
@@ -94,7 +95,7 @@
                 <h3>Reporter: </h3>
                 <input type="text" placeholder="Enter name of reporter here" id="report" required>
                 <h3>Note: </h3>
-                <input type="text" placeholder="Enter a note here" id="note" required>
+                <input type="text" placeholder="Enter a note here" id="note">
 
                 <button type="submit">Submit</button>
                 <!-- <a href="#confirmAdd" data-rel="popup" data-position-to="window" data-transition="pop"
@@ -118,6 +119,21 @@
                         <tr>
                             <th>Address:</th>
                             <td id="address"></td>
+                        </tr>
+
+                        <tr>
+                            <th>City:</th>
+                            <td id="city"></td>
+                        </tr>
+
+                        <tr>
+                            <th>District:</th>
+                            <td id="district"></td>
+                        </tr>
+
+                        <tr>
+                            <th>Ward:</th>
+                            <td id="ward"></td>
                         </tr>
         
                         <tr>
@@ -243,11 +259,6 @@
                 <input type="text" placeholder="Enter property name here" id="property">
                 <h3>Property Address</h3>
                 <input type="text" placeholder="Enter street number & name here" id="address">
-                <!-- <fieldset data-role="controlgroup">
-                    <select id="city" required></select>
-                    <select id="district" required></select>
-                    <select id="ward" required></select>
-                </fieldset> -->
                 <h3>Property Type: </h3>
                 <select id="type">
                     <option value="">Select Type</option>
@@ -341,6 +352,21 @@
                 <tr>
                     <th>Address:</th>
                     <td id="address"></td>
+                </tr>
+
+                <tr>
+                    <th>Ward:</th>
+                    <td id="ward"></td>
+                </tr>
+
+                <tr>
+                    <th>District:</th>
+                    <td id="district"></td>
+                </tr>
+
+                <tr>
+                    <th>City:</th>
+                    <td id="city"></td>
                 </tr>
 
                 <tr>
