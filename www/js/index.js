@@ -233,17 +233,6 @@ function showList() {
                                     <h3>Property Name: ${apartment.Name}</h3>
                                     <h3>Address: ${apartment.Address} ${apartment.Ward}</h3>
                                     <h3> ${apartment.District} ${apartment.City}</h3>
-                                    <div id="apartment">
-                                        <div>
-                                            <h3>Property Type: ${apartment.Type}</h3>
-                                            <h3>Bedroom: ${apartment.Bedroom}</h3>
-                                            <h3>Furniture: ${apartment.Furniture}</h3>
-                                        </div>
-                                        <div class="price">
-                                            <h3>Price: ${apartment.Price}</h3>
-                                            <h3>Reporter: ${apartment.Reporter}</h3>
-                                        </div>
-                                    </div>
                                 </div>
                                 
                             </a>
